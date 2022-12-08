@@ -52,8 +52,6 @@ const seed = (data) => {
                   );`);
         })
         .then(() => {
-            console.log("inserting into topics...");
-
             const queryTopics = format(
                 `INSERT INTO topics (slug, description)
                         VALUES %L;`,
@@ -64,7 +62,6 @@ const seed = (data) => {
             return db.query(queryTopics);
         })
         .then(() => {
-            console.log("inserting into users...");
             const queryUsers = format(
                 `
           INSERT INTO users (username, avatar_url, name)
@@ -76,7 +73,6 @@ const seed = (data) => {
             return db.query(queryUsers);
         })
         .then(() => {
-            console.log("inserting into articles....");
             const queryArticles = format(
                 `
           INSERT INTO articles (title, topic, author, body, created_at, votes) 
@@ -95,7 +91,6 @@ const seed = (data) => {
             return db.query(queryArticles);
         })
         .then(() => {
-            console.log("inserting into comments...");
             const queryComments = format(
                 `
           INSERT INTO comments(body, votes, author, article_id, created_at) 

@@ -88,7 +88,7 @@ exports.fetchAllArticles = async (
             return Promise.reject({ status: 400, msg: "invalid input" });
         }
     }
-    console.log(rows);
+
     return rows;
 };
 
@@ -119,7 +119,7 @@ exports.incrementVotesById = async (id, increment, reqLength) => {
 
 exports.fetchArticleCommentsById = async (id, limit = 10, p = 1) => {
     const offset = (p - 1) * limit;
-    console.log(offset);
+
     if (isNaN(limit)) {
         return Promise.reject({ status: 400, msg: "invalid limit query" });
     }
@@ -161,7 +161,7 @@ exports.addCommentById = async (id, username, body, reqLength) => {
             `SELECT * FROM USERS WHERE username = $1;`,
             [username]
         );
-        console.log(userQuery);
+
         if (userQuery.length === 0) {
             return Promise.reject({ status: 404, msg: "username not found" });
         }
