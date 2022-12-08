@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../db/connection");
 const { fetchTopicBySlug } = require("./topics.model");
 const { fetchUsernameByName } = require("./users.model");
 

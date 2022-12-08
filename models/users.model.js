@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../db/connection");
 
 exports.fetchAllUsernames = async () => {
     const { rows } = await db.query(`SELECT username FROM users;`);

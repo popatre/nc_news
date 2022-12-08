@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../db/connection");
 
 exports.removeCommentById = async (id) => {
     const noComment = await db.query(
