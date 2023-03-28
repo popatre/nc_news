@@ -116,6 +116,110 @@ describe("/api", () => {
                 });
         });
     });
+
+    describe("/api", () => {
+        test("status 404 - not a route/path ", () => {
+            return request(app)
+                .get("/api/badroute")
+                .expect(404)
+                .then(({ body }) => {
+                    expect(body.message).toBe("invalid url");
+                });
+        });
+        describe("GET/api/topics", () => {
+            test("status:200 - responds with array of topics, with appropriate fields", () => {
+                return request(app)
+                    .get("/api/topics")
+                    .expect(200)
+                    .then(({ body }) => {
+                        const { topics } = body;
+                        expect(topics).toBeInstanceOf(Array);
+                        expect(topics).toHaveLength(3);
+                        topics.forEach((topic) => {
+                            expect(topic).toMatchObject({
+                                slug: expect.any(String),
+                                description: expect.any(String),
+                            });
+                        });
+                    });
+            });
+        });
+    
+        describe("GET/api/topics", () => {
+            test("status:200 - responds with array of topics, with appropriate fields", () => {
+                return request(app)
+                    .get("/api/topics")
+                    .expect(200)
+                    .then(({ body }) => {
+                        const { topics } = body;
+                        expect(topics).toBeInstanceOf(Array);
+                        expect(topics).toHaveLength(3);
+                        topics.forEach((topic) => {
+                            expect(topic).toMatchObject({
+                                slug: expect.any(String),
+                                description: expect.any(String),
+                            });
+                        });
+                    });
+            });
+        });
+    
+        describe("GET/api/articles/:article_id", () => {
+            test("status 200 - returns articles object correctly based on id ", () => {
+                return request(app)
+                    .get("/api/articles/1")
+                    .expect(200)
+                    .then(({ body }) => {
+                        const { article } = body;
+                        expect(article).toBeInstanceOf(Object);
+                        expect(article).toMatchObject({
+                            title: "Living in the shadow of a great man",
+                            author: "butter_bridge",
+                            article_id: 1,
+                            body: "I find this existence challenging",
+                            topic: "mitch",
+                            created_at: expect.any(String),
+                            votes: 100,
+                            comment_count: "11",
+                        });
+                    });
+            });
+            test("status 404 - valid requests id that doesnt exist", () => {
+                return request(app)
+                    .get("/api/articles/2000")
+                    .expect(404)
+                    .then(({ body }) => {
+                        expect(body).toEqual({ message: "article not found" });
+                    });
+            });
+            test("status 400 - requests id that doesnt exist with string parameter/wrong data type", () => {
+                return request(app)
+                    .get("/api/articles/doesntexist")
+                    .expect(400)
+                    .then(({ body }) => {
+                        expect(body).toEqual({ message: "invalid request" });
+                    });
+            });
+        });
+    
+        describe("GET/api/topics", () => {
+            test("status:200 - responds with array of topics, with appropriate fields", () => {
+                return request(app)
+                    .get("/api/topics")
+                    .expect(200)
+                    .then(({ body }) => {
+                        const { topics } = body;
+                        expect(topics).toBeInstanceOf(Array);
+                        expect(topics).toHaveLength(3);
+                        topics.forEach((topic) => {
+                            expect(topic).toMatchObject({
+                                slug: expect.any(String),
+                                description: expect.any(String),
+                            });
+                        });
+                    });
+            });
+        });
     describe("PATCH/api/articles/:article_id", () => {
         test("status 200 - increments votes correctly and returns updated article ", () => {
             const update = { inc_votes: 10 };
