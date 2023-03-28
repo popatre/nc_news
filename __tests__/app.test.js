@@ -92,6 +92,25 @@ describe("/api", () => {
                 });
         });
     });
+
+    describe("GET/api/topics", () => {
+        test("status:200 - responds with array of topics, with appropriate fields", () => {
+            return request(app)
+                .get("/api/topics")
+                .expect(200)
+                .then(({ body }) => {
+                    const { topics } = body;
+                    expect(topics).toBeInstanceOf(Array);
+                    expect(topics).toHaveLength(3);
+                    topics.forEach((topic) => {
+                        expect(topic).toMatchObject({
+                            slug: expect.any(String),
+                            description: expect.any(String),
+                        });
+                    });
+                });
+        });
+    });
     describe("PATCH/api/articles/:article_id", () => {
         test("status 200 - increments votes correctly and returns updated article ", () => {
             const update = { inc_votes: 10 };
