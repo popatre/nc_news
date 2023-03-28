@@ -4,6 +4,10 @@ const testData = require("../db/data/test-data/index.js");
 const seed = require("../db/seeds/seed.js");
 
 beforeEach(() => console.log("SOMETHING ELSE"));
+
+beforeEach(() => console.log("SOMETHING ELSE"));
+beforeEach(() => seed(testData));
+afterAll(() => db.end());
 beforeEach(() => seed(testData));
 afterAll(() => db.end());
 
