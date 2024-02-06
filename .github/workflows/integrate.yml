@@ -1,0 +1,16 @@
+name: nc-news CI
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    test_push_request:
+        runs_ons: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 18
+            - run: npm ci
+            - run: npm test
